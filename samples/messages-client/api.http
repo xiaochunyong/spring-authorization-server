@@ -1,0 +1,7 @@
+### test1
+# @no-redirect
+GET http://localhost:8080
+
+### test2
+# @no-redirect
+GET http://localhost:8080/oauth2/authorization/messaging-client-oidc11

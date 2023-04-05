@@ -148,6 +148,7 @@ public final class JwtClientAssertionDecoderFactory implements JwtDecoderFactory
 		throw new OAuth2AuthenticationException(oauth2Error);
 	}
 
+	/** Ely: 默认工厂 为RegisteredClient提供一个 OAuth2TokenValidator<Jwt> 验证器工厂 */
 	private static Function<RegisteredClient, OAuth2TokenValidator<Jwt>> defaultJwtValidatorFactory() {
 		return (registeredClient) -> {
 			String clientId = registeredClient.getClientId();

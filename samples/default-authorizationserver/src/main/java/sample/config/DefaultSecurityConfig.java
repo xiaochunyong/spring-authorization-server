@@ -35,6 +35,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
+	/**
+	 * 这个也是个Spring Security的过滤器链，用于Spring Security的身份认证。
+	 * @param http
+	 * @return
+	 * @throws Exception
+	 */
 	// @formatter:off
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -42,11 +48,16 @@ public class DefaultSecurityConfig {
 			.authorizeHttpRequests(authorize ->
 				authorize.anyRequest().authenticated()
 			)
-			.formLogin(withDefaults());
+//			.formLogin(withDefaults());
+			.formLogin().loginPage("/login.html").loginProcessingUrl("/login");
 		return http.build();
 	}
 	// @formatter:on
 
+	/**
+	 * 配置用户信息，或者配置用户数据来源，主要用于用户的检索。
+	 * @return
+	 */
 	// @formatter:off
 	@Bean
 	UserDetailsService users() {

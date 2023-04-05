@@ -53,12 +53,19 @@ import org.springframework.util.StringUtils;
  */
 public class OAuth2Authorization implements Serializable {
 	private static final long serialVersionUID = SpringAuthorizationServerVersion.SERIAL_VERSION_UID;
+	// 唯一标识 OAuth2Authorization 的 ID。
 	private String id;
+	// 唯一标识RegisteredClient的ID。
 	private String registeredClientId;
+	// 资源所有者（或客户端）的主体名称。
 	private String principalName;
+	// 使用的 AuthorizationGrantType。
 	private AuthorizationGrantType authorizationGrantType;
+	// 为客户端授权的范围集。
 	private Set<String> authorizedScopes;
+	// 特定于执行的授权授予类型的 OAuth2Token 实例（和关联的元数据）。
 	private Map<Class<? extends OAuth2Token>, Token<?>> tokens;
+	// 特定于已执行授权授予类型的附加属性——例如，经过身份验证的 Principal、OAuth2AuthorizationRequest 等。
 	private Map<String, Object> attributes;
 
 	protected OAuth2Authorization() {

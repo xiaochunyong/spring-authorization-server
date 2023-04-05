@@ -46,8 +46,11 @@ public final class OAuth2AuthorizationConsent implements Serializable {
 	private static final long serialVersionUID = SpringAuthorizationServerVersion.SERIAL_VERSION_UID;
 	private static final String AUTHORITIES_SCOPE_PREFIX = "SCOPE_";
 
+	// 唯一标识RegisteredClient的ID。
 	private final String registeredClientId;
+	// 资源所有者的主体名称。
 	private final String principalName;
+	// 资源所有者授予客户端的权限。权限可以表示范围、声明、权限、角色等。
 	private final Set<GrantedAuthority> authorities;
 
 	private OAuth2AuthorizationConsent(String registeredClientId, String principalName, Set<GrantedAuthority> authorities) {

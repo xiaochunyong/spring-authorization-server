@@ -73,6 +73,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @see <a target="_blank" href="https://datatracker.ietf.org/doc/html/rfc6749#section-3.2.1">Section 3.2.1 Token Endpoint Client Authentication</a>
  */
 public final class OAuth2ClientAuthenticationFilter extends OncePerRequestFilter {
+	/** Ely: 组合了 JwtClientAssertionAuthenticationProvider, ClientSecretAuthenticationProvider, PublicClientAuthenticationProvider **/
 	private final AuthenticationManager authenticationManager;
 	private final RequestMatcher requestMatcher;
 	private final HttpMessageConverter<OAuth2Error> errorHttpResponseConverter = new OAuth2ErrorHttpMessageConverter();
@@ -94,6 +95,7 @@ public final class OAuth2ClientAuthenticationFilter extends OncePerRequestFilter
 		Assert.notNull(requestMatcher, "requestMatcher cannot be null");
 		this.authenticationManager = authenticationManager;
 		this.requestMatcher = requestMatcher;
+		/** Ely: 由多个AuthenticationConverter组成 **/
 		this.authenticationConverter = new DelegatingAuthenticationConverter(
 				Arrays.asList(
 						new JwtClientAssertionAuthenticationConverter(),
@@ -168,6 +170,7 @@ public final class OAuth2ClientAuthenticationFilter extends OncePerRequestFilter
 	private void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 
+		/** Ely: 成功响应, 设置SecurityContext */
 		SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
 		securityContext.setAuthentication(authentication);
 		SecurityContextHolder.setContext(securityContext);
@@ -190,6 +193,7 @@ public final class OAuth2ClientAuthenticationFilter extends OncePerRequestFilter
 		// include the "WWW-Authenticate" response header field
 		// matching the authentication scheme used by the client.
 
+		// Ely: 错误响应
 		OAuth2Error error = ((OAuth2AuthenticationException) exception).getError();
 		ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(response);
 		if (OAuth2ErrorCodes.INVALID_CLIENT.equals(error.getErrorCode())) {

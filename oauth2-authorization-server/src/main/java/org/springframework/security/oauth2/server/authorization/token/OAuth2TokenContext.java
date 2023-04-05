@@ -44,6 +44,7 @@ import org.springframework.util.Assert;
 public interface OAuth2TokenContext extends Context {
 
 	/**
+	 * 与授权授予关联的 RegisteredClient。
 	 * Returns the {@link RegisteredClient registered client}.
 	 *
 	 * @return the {@link RegisteredClient}
@@ -53,6 +54,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 资源所有者（或客户端）的身份验证实例。
 	 * Returns the {@link Authentication} representing the {@code Principal} resource owner (or client).
 	 *
 	 * @param <T> the type of the {@code Authentication}
@@ -63,6 +65,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * AuthorizationServerContext 对象，保存授权服务器运行时环境的信息。
 	 * Returns the {@link AuthorizationServerContext authorization server context}.
 	 *
 	 * @return the {@link AuthorizationServerContext}
@@ -73,6 +76,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 与授权授予关联的 OAuth2Authorization。
 	 * Returns the {@link OAuth2Authorization authorization}.
 	 *
 	 * @return the {@link OAuth2Authorization}, or {@code null} if not available
@@ -83,6 +87,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 为客户端授权的范围。
 	 * Returns the authorized scope(s).
 	 *
 	 * @return the authorized scope(s)
@@ -94,6 +99,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 要生成的 OAuth2TokenType。支持的值为 code、access_token、refresh_token 和 id_token。
 	 * Returns the {@link OAuth2TokenType token type}.
 	 *
 	 * @return the {@link OAuth2TokenType}
@@ -103,6 +109,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 与授权授予关联的 AuthorizationGrantType。
 	 * Returns the {@link AuthorizationGrantType authorization grant type}.
 	 *
 	 * @return the {@link AuthorizationGrantType}
@@ -112,6 +119,7 @@ public interface OAuth2TokenContext extends Context {
 	}
 
 	/**
+	 * 处理授权授予的 AuthenticationProvider 使用的 Authentication 实例。
 	 * Returns the {@link Authentication} representing the authorization grant.
 	 *
 	 * @param <T> the type of the {@code Authentication}

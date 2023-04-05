@@ -59,6 +59,13 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
+
+	/**
+	 * 这是个Spring security 的过滤器链，默认会配置
+	 * @param http
+	 * @return
+	 * @throws Exception
+	 */
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -76,6 +83,11 @@ public class AuthorizationServerConfig {
 		return http.build();
 	}
 
+	/**
+	 * oauth2 用于第三方认证，RegisteredClientRepository 主要用于管理第三方（每个第三方就是一个客户端）
+	 * @param jdbcTemplate
+	 * @return
+	 */
 	// @formatter:off
 	@Bean
 	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
@@ -113,8 +125,13 @@ public class AuthorizationServerConfig {
 		return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
 	}
 
+	/**
+	 * 用于给access_token签名使用。
+	 * @return
+	 */
 	@Bean
 	public JWKSource<SecurityContext> jwkSource() {
+		// 生成秘钥对，为jwkSource提供服务。
 		RSAKey rsaKey = Jwks.generateRsa();
 		JWKSet jwkSet = new JWKSet(rsaKey);
 		return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
@@ -125,6 +142,11 @@ public class AuthorizationServerConfig {
 		return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
 	}
 
+	/**
+	 * 配置Authorization Server实例
+	 * /oauth2/authorize
+	 * @return
+	 */
 	@Bean
 	public AuthorizationServerSettings authorizationServerSettings() {
 		return AuthorizationServerSettings.builder().build();

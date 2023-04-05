@@ -1,0 +1,40 @@
+#.authorizationEndpoint("/oauth2/authorize")
+#    .tokenEndpoint("/oauth2/token")
+#    .jwkSetEndpoint("/oauth2/jwks")
+#    .tokenRevocationEndpoint("/oauth2/revoke")
+#    .tokenIntrospectionEndpoint("/oauth2/introspect")
+#    .oidcClientRegistrationEndpoint("/connect/register")
+#    .oidcUserInfoEndpoint("/userinfo");
+### 授权端点
+GET http://localhost:9000/oauth2/authorize
+
+### 令牌(Token)端点
+GET http://localhost:9000/oauth2/token
+
+### 令牌撤销端点
+GET http://localhost:9000/oauth2/revoke
+
+### 令牌自省端点
+GET http://localhost:9000/oauth2/introspect
+
+### JWK 设置端点
+GET http://localhost:9000/oauth2/jwks
+
+###
+GET http://localhost:9000/connect/register
+
+###
+GET http://localhost:9000/userinfo
+
+
+## Token 格式
+#Self-contained (JWT)
+#Reference (Opaque)
+#
+#
+### Client Authentication
+#client_secret_basic
+#client_secret_post
+#client_secret_jwt
+#private_key_jwt
+#none (public clients)
